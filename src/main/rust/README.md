@@ -1,3 +1,11 @@
 # 1brc in Rust
 
-* Run `cargo build --release` and you'll find the binary at `/target/release/calculate_average_pranavsb`
+### How to run
+* Generate `measurements.txt` 
+* [Install Rust](https://www.rust-lang.org/tools/install)
+
+### Debugging
+* `cargo build && ./target/debug/calculate_average_pranavsb`
+
+### Release run
+* `cargo build --release && ./target/release/calculate_average_pranavsb`
