@@ -18,3 +18,26 @@ Did a basic HashMap implementation. One quirk of Rust is that rounding to one de
     * all tests are passing
 
 ### Benchmarks
+
+#### Basic benchmarking with `time`
+On my Mac M3 Pro with 36 GB RAM, my naive implementation (without multithreading) is slower than the baseline by a minute:
+* Mine (Rust) - 
+
+```bash
+time ./calculate_average/calculate_average_pranavsb.sh
+
+./calculate_average/calculate_average_pranavsb.sh  227.86s user 3.14s system 98% cpu 3:53.91 total
+```
+* Baseline (Java) - 
+```bash
+time ./calculate_average/calculate_average_baseline.sh
+
+./calculate_average/calculate_average_baseline.sh  157.12s user 4.78s system 100% cpu 2:41.56 total
+```
+
+#### Using `hyperfine`
+* On Mac, `brew install hyperfine`
+* `hyperfine "./calculate_average/calculate_average_pranavsb.sh"`
+
+
+Note that there's still some rounding off-by-one for some values in my code but it shouldn't affect the benchmarks.

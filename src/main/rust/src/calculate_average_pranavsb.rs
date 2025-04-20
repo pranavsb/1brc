@@ -27,7 +27,7 @@ fn main() {
     let filename = if args.len() > 1 {
         &args[1]
     } else {
-        "../../test/resources/samples/measurements-1.txt"
+        "measurements.txt"
     };
     debug_println!("Filename: {}", filename);
 
