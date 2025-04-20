@@ -119,7 +119,7 @@ fn write_output_file(
         let val = format!(
             "{:.1}/{:.1}/{:.1}",
             min_temps.get(city).unwrap(),
-            avg_temps.get(city).unwrap(),
+            (avg_temps.get(city).unwrap() * 10.0).ceil() / 10.0,
             max_temps.get(city).unwrap()
         );
         output_map.insert(city.to_string(), val);
