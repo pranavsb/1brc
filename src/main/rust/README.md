@@ -2,6 +2,18 @@
 
 Did a basic HashMap implementation. One quirk of Rust is that rounding to one decimal place rounds down so had to do some custom multiply divide mathemagic.
 
+First did a basic implementation without multithreading and then added threads since this is a classic MapReduce problem which can be effectively parallelized.
+
+## Results
+| What    | How slow |
+| -------- | ------- |
+| Baseline (Java)  | 163.625 s ±  1.434 s |
+| Rust without multithreading | 230.619 s ±  2.856 s |
+| Rust with multithreading   | TODO |
+
+Benchmarked using Hyperfine on my Mac M3 Pro with 36 GB RAM.
+
+
 ### How to run
 * Generate `measurements.txt` 
 * [Install Rust](https://www.rust-lang.org/tools/install)
