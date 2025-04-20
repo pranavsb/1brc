@@ -15,4 +15,5 @@
 #  limitations under the License.
 #
 
-# TODO run ./target/release/calculate_average_pranavsb 
+# read the README in src/main/rust - first generate the binary before running:
+./src/main/rust/target/release/calculate_average_pranavsb
