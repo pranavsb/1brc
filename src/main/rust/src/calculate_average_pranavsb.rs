@@ -108,8 +108,8 @@ fn calculate_average(
 fn write_output_file(
     filename: &str,
     avg_temps: HashMap<String, f64>,
-    max_temps: HashMap<String, f64>,
     min_temps: HashMap<String, f64>,
+    max_temps: HashMap<String, f64>,
 ) {
     let mut cities = avg_temps.keys().cloned().collect::<Vec<String>>();
     cities.sort();
@@ -130,15 +130,15 @@ fn write_output_file(
     outfile
         .write_all("{".as_bytes())
         .expect("could not write to output file");
-    for (i, (city, val)) in cities.iter().zip(output_map.values()).enumerate() {
+    for (i, city) in cities.iter().enumerate() {
         if i == cities.len() - 1 {
             outfile
-                .write_all(format!("{}={}", city, val).as_bytes())
+                .write_all(format!("{}={}", city, output_map.get(city).unwrap()).as_bytes())
                 .expect("could not write to output file");
             break;
         }
         outfile
-            .write_all(format!("{}={}, ", city, val).as_bytes())
+            .write_all(format!("{}={}, ", city, output_map.get(city).unwrap()).as_bytes())
             .expect("could not write to output file");
     }
     outfile
