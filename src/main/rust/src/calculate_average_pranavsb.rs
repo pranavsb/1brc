@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::env;
 use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, Write};
 
 macro_rules! debug_println {
     ($($arg:tt)*) => {
@@ -34,6 +34,9 @@ fn main() {
     debug_println!("Min temps: {:?}", min_temps);
     debug_println!("Max temps: {:?}", max_temps);
     debug_println!("Avg temps: {:?}", avg_temps);
+
+    let outfile = filename.split("/").last().expect("badly formatted filename");
+    write_output_file(outfile, avg_temps, min_temps, max_temps);
 }
 
 fn populate_raw_data(file: File) -> (
@@ -83,3 +86,26 @@ fn calculate_average(mut sum_temps: HashMap<String, f64>, count_temps: HashMap<S
     });
     sum_temps
 }
+
+fn write_output_file(filename: &str, avg_temps: HashMap<String, f64>, max_temps: HashMap<String, f64>, min_temps: HashMap<String, f64>) {
+    let mut cities = avg_temps.keys().cloned().collect::<Vec<String>>();
+    cities.sort();
+
+    let mut output_map: HashMap<String, String> = HashMap::new();
+    for city in cities.iter() {
+        let val = format!("{:.1}/{:.1}/{:.1}", min_temps.get(city).unwrap(), avg_temps.get(city).unwrap(), max_temps.get(city).unwrap());
+        output_map.insert(city.to_string(), val);
+    }
+
+    let mut outfile = File::create(format!("./out/{}", filename)).expect("could not create output file");
+    outfile.write_all("{".as_bytes()).expect("could not write to output file");
+    for (i, (city, val)) in output_map.iter().enumerate() {
+        if i == cities.len() - 1 {
+            outfile.write_all(format!("{}={}", city, val).as_bytes()).expect("could not write to output file");
+            break;
+        }
+        outfile.write_all(format!("{}={}, ", city, val).as_bytes()).expect("could not write to output file");
+    }
+    outfile.write_all("}".as_bytes()).expect("could not write to output file");
+}
+
