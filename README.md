@@ -1,7 +1,8 @@
 # 1️⃣🐝🏎️ The One Billion Row Challenge in Rust
 
-Trying to do The One Billion Row Challenge in Rust. Did a basic HashMap implementation with no multithreading.
-See [this README](src/main/rust/) for details.
+Dependency free Rust implementation of 1brc. One quirk of Rust is that rounding to one decimal place rounds down so had to do some custom multiply divide mathemagic.
+
+First did a basic implementation without multithreading and then added threads since this is a classic MapReduce problem which can be effectively parallelized.
 
 ## Results
 | What    | How slow |
@@ -12,7 +13,51 @@ See [this README](src/main/rust/) for details.
 
 Benchmarked using Hyperfine on my Mac M3 Pro with 36 GB RAM.
 
-See [1brc repo](https://github.com/gunnarmorling/1brc)
+
+### How to run
+* Generate `measurements.txt` 
+* [Install Rust](https://www.rust-lang.org/tools/install)
+
+### Release run
+* `cargo build --release && ./target/release/calculate_average_pranavsb`
+
+### Debugging
+* `cargo build && ./target/debug/calculate_average_pranavsb`
+
+### Testing
+* To run a particular test from `test/resources/samples`:
+    * `cargo build && ./target/debug/calculate_average_pranavsb ../../test/resources/samples/measurements-3.txt`
+    * All tests are passing. There's a 0.1 difference with some values in the 1b file which I'm tryng to figure out (doing some custom rounding which is the likely culprit)
+
+### Benchmarks
+
+#### Basic benchmarking with `time`
+On my Mac M3 Pro with 36 GB RAM, my naive implementation (without multithreading) is slower than the baseline by a minute:
+* Mine (Rust) - 
+
+```bash
+time ./calculate_average/calculate_average_pranavsb.sh
+
+./calculate_average/calculate_average_pranavsb.sh  227.86s user 3.14s system 98% cpu 3:53.91 total
+```
+* Baseline (Java) - 
+```bash
+time ./calculate_average/calculate_average_baseline.sh
+
+./calculate_average/calculate_average_baseline.sh  157.12s user 4.78s system 100% cpu 2:41.56 total
+```
+
+#### Using `hyperfine`
+* On Mac, `brew install hyperfine`
+* `hyperfine "./calculate_average/calculate_average_pranavsb.sh"`
+
+
+Note that there's still some rounding off-by-one for some values in my code but it shouldn't affect the benchmarks.
+See [this README](src/main/rust/) for details.
+
+Benchmarked using Hyperfine on my Mac M3 Pro with 36 GB RAM.
+
+For details, see the [1brc repo](https://github.com/gunnarmorling/1brc)
 
 ---------------------------------------
 ### Original README:

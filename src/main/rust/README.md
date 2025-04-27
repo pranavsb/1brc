@@ -1,6 +1,6 @@
 # 1brc in Rust
 
-Did a basic HashMap implementation. One quirk of Rust is that rounding to one decimal place rounds down so had to do some custom multiply divide mathemagic.
+Dependency free Rust implementation of 1brc. One quirk of Rust is that rounding to one decimal place rounds down so had to do some custom multiply divide mathemagic.
 
 First did a basic implementation without multithreading and then added threads since this is a classic MapReduce problem which can be effectively parallelized.
 
@@ -23,11 +23,12 @@ Benchmarked using Hyperfine on my Mac M3 Pro with 36 GB RAM.
 
 ### Debugging
 * `cargo build && ./target/debug/calculate_average_pranavsb`
+* debug build prints some data to stdout and validates that the final output is correct
 
 ### Testing
-* to run a particular test from `test/resources/samples`:
+* To run a particular test from `test/resources/samples`:
     * `cargo build && ./target/debug/calculate_average_pranavsb ../../test/resources/samples/measurements-3.txt`
-    * all tests are passing
+    * All tests are passing. There's a 0.1 difference with some values in the 1b file which I'm tryng to figure out (doing some custom rounding which is the likely culprit)
 
 ### Benchmarks
 
