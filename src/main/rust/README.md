@@ -9,7 +9,7 @@ First did a basic implementation without multithreading and then added threads s
 | -------- | ------- |
 | Baseline (Java)  | 163.625 s ±  1.434 s |
 | Rust without multithreading | 230.619 s ±  2.856 s |
-| Rust with multithreading   | TODO |
+| Rust with 500 threads   | 720.46s |
 
 Benchmarked using Hyperfine on my Mac M3 Pro with 36 GB RAM.
 
